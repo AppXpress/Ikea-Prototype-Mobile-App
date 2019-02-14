@@ -1,0 +1,19 @@
+<ion-content class="login-component">
+  <ion-title padding text-center>
+    Stock Request Transfer App
+  </ion-title>
+  <div class="center-image">
+    <ion-img src="assets/imgs/ikea1.jpg" width="100px" height="56px"></ion-img>
+  </div>
+  <div class="login-box">
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-input #username></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked >Password</ion-label>
+      <ion-input type="password" #password></ion-input>
+    </ion-item>
+    <button ion-button (click)="login(username.value,password.value)">Login</button>
+  </div>
+</ion-content>

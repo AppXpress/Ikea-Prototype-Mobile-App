@@ -1,0 +1,12 @@
+.str-header-query-pills{
+  margin: 0 10px 5px 10px;
+}
+.str-header-query-pills a{
+  color: darkgray;
+  border-radius: 5px;
+  padding: 5px;
+}
+.str-header-query-pills a.active{
+  background-color: darkgray;
+  color: whitesmoke;
+}

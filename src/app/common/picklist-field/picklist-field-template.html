@@ -1,0 +1,10 @@
+<ng-container>
+  <ng-container *ngIf="readonly">
+    {{picklistLabel}}
+  </ng-container>
+  <ng-container *ngIf="!readonly">
+    <ion-select [(ngModel)]="value" interface="popover" (ionChange)="emitValue()" #selectElement>
+      <ion-option *ngFor="let opts of picklist.items" value="{{opts.key}}">{{opts.label}}</ion-option>
+    </ion-select>
+  </ng-container>
+</ng-container>

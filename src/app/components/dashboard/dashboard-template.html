@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Stock Transfers
+    </ion-title>
+  </ion-navbar>
+  <ion-row class="toolbar-background-md">
+    <ion-col>
+      <div class="str-header-query-pills">
+        <a [ngClass]="{ 'active' : currentActiveList == listTypes.REQUESTS }" (click)="fetchListOnClick(listTypes.REQUESTS)">Requested</a>
+        <a [ngClass]="{ 'active' : currentActiveList == listTypes.DRAFT }" (click)="fetchListOnClick(listTypes.DRAFT)">Drafts</a>
+        <a [ngClass]="{ 'active' : currentActiveList == listTypes.READYFORSHIPMENT }" (click)="fetchListOnClick(listTypes.READYFORSHIPMENT)">Ready for Shipment</a>
+        <a [ngClass]="{ 'active' : currentActiveList == listTypes.ALL }" (click)="fetchListOnClick(listTypes.ALL)">All</a>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content padding>
+  <ion-tabs #myTabs>
+    <ion-tab [root]="tab1" tabsPlacement="bottom" tabTitle="List"></ion-tab>
+    <ion-tab [root]="tab2" tabsPlacement="bottom" tabTitle="Map"></ion-tab>
+  </ion-tabs>
+</ion-content>

@@ -1,0 +1,34 @@
+.login-component{
+  background: #0051BA;
+  input{
+    color: white;
+  }
+  .toolbar-title-md{
+    color : #FFDA1A;
+  }
+  ion-item{
+    background-color: inherit;
+  }
+  .input-cover{
+    position: static;
+  }
+}
+.login-box{
+  margin-top: 150px;
+  button {
+    color : #0051BA;
+    background-color: #FFDA1A;
+    display : block;
+    margin: 25px auto auto;
+  }
+  ion-label{
+    color : #FFDA1A !important;
+  }
+}
+.center-image{
+  margin-top: 10px;
+  ion-img {
+    margin: auto;
+    display: block;
+  }
+}

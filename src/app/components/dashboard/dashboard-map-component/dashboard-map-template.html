@@ -1,0 +1,19 @@
+<ion-content no-padding id="mapPage">
+  <div #map style="width:100%;height:80%"></div>
+  <ion-list *ngIf="currentSelectedLocation != null">
+    <ion-list-header>Stock Transfers from {{currentSelectedLocation.longName}}
+      <button ion-button outline item-end icon-start (click)="newRequestOnClickFn()" >
+        <ion-icon name="document"></ion-icon>
+        Create
+      </button>
+    </ion-list-header>
+    <ion-item *ngFor="let str of currentMarkerSelectedList" (click)="listItemClickFn(str)">
+      <p><b>{{str.wfState}}</b> - {{str.requestedByDate}}</p>
+      <p>Requested From Location - {{str.requestedFromLocation}}</p>
+      <p>Requested By Location - {{str.requestedByLocation}}</p>
+    </ion-item>
+  </ion-list>
+  <ion-list-header *ngIf="currentSelectedLocation == null" align-items-center>
+    Select an Ikea Location to show relevant location requests
+  </ion-list-header>
+</ion-content>

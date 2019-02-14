@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-list-header>
+    <p>Stock Transfer Requests</p>
+  </ion-list-header>
+  <ion-list>
+    <ion-item *ngFor="let str of displayList" (click)="listItemClickFn(str)">
+      <p><b>{{str.wfState}}</b> - {{str.requestedByDate}}</p>
+      <p>Requested From Location - {{str.requestedFromLocation}}</p>
+      <p>Requested By Location - {{str.requestedByLocation}}</p>
+    </ion-item>
+  </ion-list>
+  <ion-fab right bottom>
+    <button (click)="popNewRequestInstance()" ion-fab color="primary"><ion-icon name="ios-add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

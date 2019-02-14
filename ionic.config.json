@@ -1,5 +1,13 @@
 {
   "name": "stockTransferApp",
-  "integrations": {},
-  "type": "ionic-angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/supportQ",
+      "proxyUrl": "https://network-supportq.qa.gtnexus.com"
+    }
+  ]
 }

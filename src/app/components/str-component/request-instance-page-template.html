@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Stock Transfers
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button [disabled]="! isDirtyState" (click)="executeInstanceSave()">
+        Save
+      </button>
+      <button ion-button icon-only *ngIf="shouldShowActionButton()" (click)="actionSetButtonOnClick($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-row *ngIf="clientInstance != null" class="toolbar-background-md">
+    <ion-col align-self-start>
+      {{clientInstance.uid}}
+    </ion-col>
+    <ion-col align-self-end text-center>
+      {{clientInstance.wfState}}
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="clientInstance != null">
+    <div>
+      <ion-row>
+        <ion-col>
+            <ion-label>Article</ion-label>
+            <ion-input [(ngModel)]="clientInstance.sku" [readonly]="editMode != editModes.EDIT_MODE"></ion-input>
+        </ion-col>
+      </ion-row>
+      <request-instance-map [instance]="clientInstance" (emitSelection)="handleMapSelection($event)" [pageEditMode]="editMode" style="width:100%;height:200px"></request-instance-map>
+      <ion-row>
+        <ion-col>
+          <ion-label>Requested By Location</ion-label>
+          <picklist-field [readonly]="editMode != editModes.EDIT_MODE" [picklistType]="picklistRegistryKeys.Locations" [(value)]="clientInstance.requestedByLocation"></picklist-field>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Requested From Location</ion-label>
+          <picklist-field [readonly]="editMode != editModes.EDIT_MODE" [picklistType]="picklistRegistryKeys.Locations" [(value)]="clientInstance.requestedFromLocation"></picklist-field>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Requested By User</ion-label>
+          <picklist-field [readonly]="true" [picklistType]="picklistRegistryKeys.USERS" [(value)]="clientInstance.requestedByUser"></picklist-field>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Requested From User</ion-label>
+          <picklist-field [readonly]="editMode != editModes.EDIT_MODE" [picklistType]="picklistRegistryKeys.USERS" [(value)]="clientInstance.requestedFromUser"></picklist-field>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Quantity Requested</ion-label>
+          <ion-input type="number" min="0" [(ngModel)]="clientInstance.quantityRequested" [readonly]="!(editMode == editModes.EDIT_MODE || clientInstance.wfState === workflowStates.ADJUSTMENT)"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label>Requested By Date</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="clientInstance.requestedByDate" *ngIf="editMode == editModes.EDIT_MODE"></ion-datetime>
+          <span *ngIf="editMode != editModes.EDIT_MODE">{{clientInstance.requestedByDate}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="clientInstance.wfState == workflowStates.SHIPMENTCONFIRMED || clientInstance.wfState == workflowStates.ACCEPTED">
+        <ion-col>
+          <ion-label>Shipment Method</ion-label>
+          <ion-input [(ngModel)]="clientInstance.shipmentMethod" [readonly]="editMode != editModes.ONLY_SHIPMENT"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label>Shipment Date</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="clientInstance.shipmentDate" *ngIf="editMode == editModes.ONLY_SHIPMENT" ></ion-datetime>
+          <span *ngIf="editMode != editModes.ONLY_SHIPMENT">{{clientInstance.shipmentDate}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="clientInstance.wfState == workflowStates.SHIPMENTCONFIRMED || clientInstance.wfState == workflowStates.ACCEPTED">
+        <ion-col>
+          <ion-label>Carrier</ion-label>
+          <ion-input [(ngModel)]="clientInstance.carrier" [readonly]="editMode != editModes.ONLY_SHIPMENT"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label>Tracking Number</ion-label>
+          <ion-input [(ngModel)]="clientInstance.trackingNumber" [readonly]="editMode != editModes.ONLY_SHIPMENT"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-list-header>
+        <ion-item class="header" no-lines>
+          <span item-start>Comments</span>
+          <button item-end ion-button color="default" *ngIf="editMode != editModes.NONE" icon-only style="padding:8px;border-radius:50px;" (click)="showAddCommentPopover()">
+            <ion-icon name="ios-add"></ion-icon>
+          </button>
+        </ion-item>
+      </ion-list-header>
+
+      <ion-card *ngFor="let comment of clientInstance.comments">
+        <ion-card-header>
+          {{comment.timestamp}}
+          <br/>
+          <picklist-field [readonly]="true" [picklistType]="picklistRegistryKeys.USERS" [(value)]="comment.user"></picklist-field>
+        </ion-card-header>
+        <ion-card-content>
+          {{comment.text}}
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>
